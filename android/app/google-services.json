@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "984041060075",
+    "firebase_url": "https://testauth-3c39b.firebaseio.com",
+    "project_id": "testauth-3c39b",
+    "storage_bucket": "testauth-3c39b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984041060075:android:02dccb7c60d9c9bf72b0ae",
+        "android_client_info": {
+          "package_name": "com.avani.flutterfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984041060075-om2pcpcpphjvbb4116cut2kblqh5tdfq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA07z7LqNFuEQG89gs8ClX5wzz_lUVezGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984041060075-om2pcpcpphjvbb4116cut2kblqh5tdfq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

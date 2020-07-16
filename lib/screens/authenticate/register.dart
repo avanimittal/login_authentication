@@ -1,53 +1,40 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfirebase/services/auth.dart';
 import 'package:flutterfirebase/shared/constants.dart';
 import 'package:flutterfirebase/shared/loading.dart';
 
-class SignIn extends StatefulWidget {
+
+class Register extends StatefulWidget {
   final Function toggleview;
-  SignIn({this.toggleview});
+  Register({this.toggleview});
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   String email='';
   String password='';
   String error='';
 
   final AuthService _authService=AuthService();
-  final _formkey= GlobalKey<FormState>();
+  final _formkey=GlobalKey<FormState>();
   bool isLoading=false;
 
   @override
   Widget build(BuildContext context) {
     return isLoading?Loading():Scaffold(
-      appBar: AppBar(
-        title: Text('Sign in'),
-        actions: [
-          FlatButton.icon(onPressed: (){
-            widget.toggleview();
-          }, icon: Icon(Icons.person,color: Colors.white), label: Text('Register',style:TextStyle(color:Colors.white)))
-        ],
-      ),
-      body: Container(
-        padding: EdgeInsets.symmetric(vertical: 12.0,horizontal: 20.0),
-        child: /*RaisedButton(
-          child: Text('Sign in anon'),
-          onPressed: ()async{
-            dynamic result = await _authService.signInAnon();         //For sign in anonymously
-            if(result==null){
-              print('error signing in');
-            }
-            else{
-              print('signed in');
-              print(result.uid);
-            }
-          },
-        ),*/
-      Form(
-        key:_formkey,
+        appBar: AppBar(
+        title: Text('Register'),
+          actions: [
+            FlatButton.icon(onPressed: (){
+              widget.toggleview();
+            }, icon: Icon(Icons.person,color: Colors.white,), label: Text('Sign In',style: TextStyle(color: Colors.white),))
+          ],
+    ),
+    body:Container(
+      padding: EdgeInsets.symmetric(vertical: 12.0,horizontal: 20.0),
+      child: Form(
+        key: _formkey,
         child: Column(
           children: [
             SizedBox(height: 20.0,),
@@ -63,7 +50,7 @@ class _SignInState extends State<SignIn> {
             SizedBox(height: 20.0,),
             TextFormField(
               decoration:textInputDecoration.copyWith(hintText: 'Enter Password',labelText: 'Password'),
-              validator: (value)=>value.length<6?'Enter 6+ char password':null,
+              validator: (value)=>value.length <6?'Enter 6+ char long password':null,
               obscureText: true,
               onChanged: (value){
                 setState(() {
@@ -73,15 +60,15 @@ class _SignInState extends State<SignIn> {
             ),
             SizedBox(height: 20.0,),
             RaisedButton(
-              child: Text('Sign In'),
+              child: Text('Register'),
               onPressed: ()async{
                 if(_formkey.currentState.validate()){
-                  setState(()=> isLoading=true);
-                  dynamic result = await _authService.signInwEmailnPswd(email, password);
+                  setState(()=>isLoading=true);
+                  dynamic result = await _authService.registerwEmailnPswd(email, password);
                   if(result==null){
                     setState(() {
-                      error= 'Could not signIn with those credentials';
-                      isLoading=false;
+                     error= 'Please supply valid email';
+                     isLoading=false;
                     });
                   }
                 }
@@ -91,7 +78,8 @@ class _SignInState extends State<SignIn> {
             Text(error, style: TextStyle(color: Colors.red,fontSize: 14.0),)
           ],
         ),
-      )),
+      ),
+    ),
     );
   }
 }

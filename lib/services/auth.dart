@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfirebase/models/userobject.dart';
+import 'package:flutterfirebase/services/database.dart';
 
 class AuthService{
 
@@ -28,8 +29,31 @@ class AuthService{
   }
 
 //sign in using email and password
+  Future signInwEmailnPswd(String email, String password) async{
+    try{
+      AuthResult result= await _auth.signInWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user =result.user;
+      return _userObjectFromFirebase(user);
+    }
+    catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
 
 //register
+  Future registerwEmailnPswd(String email, String password) async{
+    try{
+      AuthResult result= await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user =result.user;
+      await DatabaseService(uid:user.uid).updateUserData('No Subject','New User',0);
+      return _userObjectFromFirebase(user);
+    }
+    catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
 
 //sign out
 Future signOut() async{
